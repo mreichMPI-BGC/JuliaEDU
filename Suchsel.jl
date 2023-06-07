@@ -127,8 +127,8 @@ function plot!( ax, p::PairWithCoord; linkthem=false, jitter=0.3, sizeFac=1)
 
     linkthem && lines!([pnt1, pnt2], color=:black)
 
-    scatter!(pnt1, marker=:circle, markersize=sizeFac * Vec2f(15+17len1,30), color=:white, strokewidth=1)
-    scatter!(pnt2, marker=:circle, markersize=sizeFac * Vec2f(15+17len2,30), color=:white, strokewidth=1)
+    scatter!(pnt1, marker=:circle, markersize=sizeFac * Vec2f(4+10len1,30), color=:white, strokewidth=1)
+    scatter!(pnt2, marker=:circle, markersize=sizeFac * Vec2f(4+10len2,30), color=:white, strokewidth=1)
     text!(ax, string(p.valuePair |> first), position=pnt1, align=(0.5,0.5), fontsize=12sizeFac)
     text!(ax, string(p.valuePair |> last), position=pnt2,  align=(0.5,0.5), fontsize=12sizeFac)
 
@@ -152,12 +152,13 @@ function randExercise(openrandSet=collect(1:10), operator=+)
 
 end
 
+##
 
 prs = [x => x for x in sample(100:1000, 12, replace=false)]
 ##OR
 #prs = [Char(x) => Char(x) for x in sample(9824:9854, 12, replace=false)] ## Funny Unicode chars
 ## OR
-prs = [randExercise() for x in 1:12] ## Random math exercise
+prs = [randExercise(collect(2:6), *) for x in 1:12] ## Random math exercise
 prm = arrangePairsinMat2(prs, size=(6,6))
 fig = plot(prm;sizeFac=1.6) # puzzle
 save("Task.pdf", fig)
